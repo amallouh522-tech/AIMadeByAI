@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A responsive analytics dashboard for a small product team.">
+  <title>Northstar | Analytics</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme: { extend: { colors: { canvas: "#f4f5f0", forest: "#245943", lime: "#d7ee83", rose: "#e17a68" } } } };
+  </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="min-h-screen bg-canvas text-slate-900 antialiased">
+  <div class="min-h-screen lg:grid lg:grid-cols-[248px_1fr]">
+    <aside class="flex flex-col border-b border-slate-200 bg-white px-5 py-5 lg:min-h-screen lg:border-b-0 lg:border-r">
+      <a href="#overview" class="flex items-center gap-3 text-lg font-bold"><span class="grid size-10 place-items-center rounded-xl bg-forest text-white"><i data-lucide="compass" class="size-5"></i></span> Northstar</a>
+      <div class="mt-8 flex items-center gap-3 rounded-xl bg-canvas p-3"><span class="grid size-9 place-items-center rounded-full bg-lime text-sm font-bold">AC</span><span class="min-w-0 flex-1"><span class="block truncate text-sm font-semibold">Acme Studio</span><span class="block text-xs text-slate-500">Growth plan</span></span><button type="button" class="rounded p-1 hover:bg-white" aria-label="Switch workspace"><i data-lucide="chevrons-up-down" class="size-4"></i></button></div>
+      <nav class="mt-8 grid grid-cols-4 gap-1 text-sm lg:grid-cols-1" aria-label="Dashboard navigation">
+        <a class="flex items-center gap-3 rounded-lg bg-forest px-3 py-2.5 font-medium text-white" href="#overview"><i data-lucide="layout-dashboard" class="size-4"></i><span class="hidden sm:inline">Overview</span></a>
+        <a class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-slate-600 hover:bg-canvas" href="#projects"><i data-lucide="folder-kanban" class="size-4"></i><span class="hidden sm:inline">Projects</span></a>
+        <a class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-slate-600 hover:bg-canvas" href="#people"><i data-lucide="users" class="size-4"></i><span class="hidden sm:inline">People</span></a>
+        <a class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-slate-600 hover:bg-canvas" href="#reports"><i data-lucide="chart-no-axes-column-increasing" class="size-4"></i><span class="hidden sm:inline">Reports</span></a>
+      </nav>
+      <div class="mt-auto hidden border-t border-slate-200 pt-5 lg:block"><a class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-slate-600 hover:bg-canvas" href="#settings"><i data-lucide="settings-2" class="size-4"></i> Settings</a><a class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-slate-600 hover:bg-canvas" href="#help"><i data-lucide="circle-help" class="size-4"></i> Help center</a></div>
+    </aside>
+
+    <main id="overview" class="min-w-0 px-4 py-6 sm:px-7 lg:px-10 lg:py-9">
+      <header class="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+        <div><p class="text-sm text-slate-500">Tuesday, October 14, 2025</p><h1 class="mt-1 text-2xl font-bold tracking-tight">Good morning, Alex</h1></div>
+        <div class="flex items-center gap-2"><label for="range" class="sr-only">Report date range</label><select id="range" class="rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm"><option>Last 7 days</option><option>Last 30 days</option><option>This quarter</option></select><button type="button" id="export" class="inline-flex items-center gap-2 rounded-lg bg-forest px-4 py-2.5 text-sm font-semibold text-white hover:bg-slate-900"><i data-lucide="download" class="size-4"></i><span>Export</span></button></div>
+      </header>
+
+      <section class="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4" aria-label="Key metrics">
+        <article class="rounded-xl border border-slate-200 bg-white p-5"><div class="flex items-center justify-between text-sm text-slate-500"><span>Active projects</span><i data-lucide="layers-3" class="size-4"></i></div><p class="mt-4 text-3xl font-bold">24</p><p class="mt-2 text-sm text-forest">↑ 12% <span class="text-slate-500">from last month</span></p></article>
+        <article class="rounded-xl border border-slate-200 bg-white p-5"><div class="flex items-center justify-between text-sm text-slate-500"><span>Tasks completed</span><i data-lucide="circle-check" class="size-4"></i></div><p class="mt-4 text-3xl font-bold">1,284</p><p class="mt-2 text-sm text-forest">↑ 8.4% <span class="text-slate-500">from last month</span></p></article>
+        <article class="rounded-xl border border-slate-200 bg-white p-5"><div class="flex items-center justify-between text-sm text-slate-500"><span>Team capacity</span><i data-lucide="gauge" class="size-4"></i></div><p class="mt-4 text-3xl font-bold">82%</p><p class="mt-2 text-sm text-rose">↓ 3.1% <span class="text-slate-500">from last month</span></p></article>
+        <article class="rounded-xl border border-slate-200 bg-white p-5"><div class="flex items-center justify-between text-sm text-slate-500"><span>On-time delivery</span><i data-lucide="timer" class="size-4"></i></div><p class="mt-4 text-3xl font-bold">96.2%</p><p class="mt-2 text-sm text-forest">↑ 2.2% <span class="text-slate-500">from last month</span></p></article>
+      </section>
+
+      <section class="mt-6 grid gap-4 xl:grid-cols-[1.6fr_1fr]">
+        <article id="reports" class="rounded-xl border border-slate-200 bg-white p-5 sm:p-6">
+          <div class="flex items-start justify-between"><div><h2 class="font-semibold">Work completed</h2><p class="mt-1 text-sm text-slate-500">Tasks closed across the team</p></div><span class="rounded-md bg-lime/50 px-2.5 py-1 text-xs font-semibold text-forest">+8.4%</span></div>
+          <div class="mt-6 overflow-hidden">
+            <svg viewBox="0 0 720 240" role="img" aria-labelledby="chart-title chart-desc" class="h-56 w-full">
+              <title id="chart-title">Weekly completed tasks</title><desc id="chart-desc">A line chart showing task completion rising from 32 to 76 over seven weeks.</desc>
+              <g stroke="#e5e7eb" stroke-width="1"><path d="M48 32H700M48 82H700M48 132H700M48 182H700M48 218H700"/></g>
+              <g fill="#64748b" font-size="11"><text x="12" y="36">80</text><text x="12" y="86">60</text><text x="12" y="136">40</text><text x="12" y="186">20</text><text x="50" y="236">Aug 25</text><text x="150" y="236">Sep 1</text><text x="250" y="236">Sep 8</text><text x="350" y="236">Sep 15</text><text x="450" y="236">Sep 22</text><text x="550" y="236">Sep 29</text><text x="650" y="236">Oct 6</text></g>
+              <path d="M55 168 C100 154 116 145 155 148 S218 124 255 132 S318 95 355 106 S420 80 455 88 S520 62 555 72 S620 39 680 48 L680 218 L55 218Z" fill="#d7ee83" opacity=".42"/>
+              <path d="M55 168 C100 154 116 145 155 148 S218 124 255 132 S318 95 355 106 S420 80 455 88 S520 62 555 72 S620 39 680 48" fill="none" stroke="#245943" stroke-width="4" stroke-linecap="round"/>
+              <circle cx="680" cy="48" r="6" fill="#e17a68" stroke="white" stroke-width="3"/>
+            </svg>
+          </div>
+        </article>
+        <article id="people" class="rounded-xl border border-slate-200 bg-white p-5 sm:p-6"><div class="flex items-center justify-between"><div><h2 class="font-semibold">Team capacity</h2><p class="mt-1 text-sm text-slate-500">Average planned hours</p></div><button type="button" aria-label="More capacity options" class="rounded-md p-2 hover:bg-canvas"><i data-lucide="ellipsis" class="size-4"></i></button></div>
+          <div class="mt-8 flex items-center justify-center"><div class="relative grid size-44 place-items-center rounded-full" style="background: conic-gradient(#245943 0 82%, #d7ee83 82% 91%, #e5e7eb 91% 100%)"><div class="grid size-32 place-items-center rounded-full bg-white text-center"><div><p class="text-3xl font-bold">82%</p><p class="text-xs text-slate-500">utilized</p></div></div></div></div>
+          <div class="mt-7 space-y-3 text-sm"><p class="flex justify-between"><span class="inline-flex items-center gap-2"><span class="size-2 rounded-full bg-forest"></span>Planned</span><strong>82%</strong></p><p class="flex justify-between"><span class="inline-flex items-center gap-2"><span class="size-2 rounded-full bg-lime"></span>Available</span><strong>9%</strong></p><p class="flex justify-between"><span class="inline-flex items-center gap-2"><span class="size-2 rounded-full bg-slate-200"></span>Out of office</span><strong>9%</strong></p></div>
+        </article>
+      </section>
+
+      <section id="projects" class="mt-6 rounded-xl border border-slate-200 bg-white">
+        <div class="flex flex-col justify-between gap-4 border-b border-slate-200 p-5 sm:flex-row sm:items-center"><div><h2 class="font-semibold">Project progress</h2><p class="mt-1 text-sm text-slate-500">A live view of the work in motion</p></div><label class="relative"><span class="sr-only">Search projects</span><i data-lucide="search" class="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-slate-400"></i><input id="project-search" type="search" placeholder="Search projects" class="w-full rounded-lg border border-slate-300 py-2 pl-9 pr-3 text-sm sm:w-64"></label></div>
+        <div class="overflow-x-auto"><table class="w-full min-w-[650px] text-left text-sm"><thead class="bg-canvas text-xs uppercase text-slate-500"><tr><th scope="col" class="px-5 py-3 font-medium">Project</th><th scope="col" class="px-5 py-3 font-medium">Owner</th><th scope="col" class="px-5 py-3 font-medium">Progress</th><th scope="col" class="px-5 py-3 font-medium">Status</th><th scope="col" class="px-5 py-3 font-medium">Due date</th></tr></thead><tbody id="project-rows" class="divide-y divide-slate-100">
+          <tr data-project><td class="px-5 py-4 font-medium">Website refresh</td><td class="px-5 py-4 text-slate-600">Maya Chen</td><td class="px-5 py-4"><div class="flex items-center gap-3"><div class="h-2 w-24 rounded-full bg-slate-100"><div class="h-2 w-[76%] rounded-full bg-forest"></div></div><span>76%</span></div></td><td class="px-5 py-4"><span class="rounded-full bg-lime/60 px-2.5 py-1 text-xs font-semibold text-forest">On track</span></td><td class="px-5 py-4 text-slate-600">Oct 24, 2025</td></tr>
+          <tr data-project><td class="px-5 py-4 font-medium">Mobile onboarding</td><td class="px-5 py-4 text-slate-600">Jordan Lee</td><td class="px-5 py-4"><div class="flex items-center gap-3"><div class="h-2 w-24 rounded-full bg-slate-100"><div class="h-2 w-[48%] rounded-full bg-rose"></div></div><span>48%</span></div></td><td class="px-5 py-4"><span class="rounded-full bg-rose/15 px-2.5 py-1 text-xs font-semibold text-rose">At risk</span></td><td class="px-5 py-4 text-slate-600">Oct 29, 2025</td></tr>
+          <tr data-project><td class="px-5 py-4 font-medium">Customer research</td><td class="px-5 py-4 text-slate-600">Sam Rivera</td><td class="px-5 py-4"><div class="flex items-center gap-3"><div class="h-2 w-24 rounded-full bg-slate-100"><div class="h-2 w-[91%] rounded-full bg-forest"></div></div><span>91%</span></div></td><td class="px-5 py-4"><span class="rounded-full bg-lime/60 px-2.5 py-1 text-xs font-semibold text-forest">On track</span></td><td class="px-5 py-4 text-slate-600">Oct 17, 2025</td></tr>
+          <tr data-project><td class="px-5 py-4 font-medium">Quarterly planning</td><td class="px-5 py-4 text-slate-600">Alex Morgan</td><td class="px-5 py-4"><div class="flex items-center gap-3"><div class="h-2 w-24 rounded-full bg-slate-100"><div class="h-2 w-[30%] rounded-full bg-forest"></div></div><span>30%</span></div></td><td class="px-5 py-4"><span class="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-600">In progress</span></td><td class="px-5 py-4 text-slate-600">Nov 3, 2025</td></tr>
+        </tbody></table></div>
+        <p id="empty-search" class="hidden px-5 py-8 text-center text-sm text-slate-500">No projects match that search.</p>
+      </section>
+      <footer class="py-6 text-xs text-slate-500">Northstar Analytics · Data updated 5 minutes ago</footer>
+    </main>
+  </div>
+  <script>
+    lucide.createIcons();
+    const searchInput = document.querySelector("#project-search");
+    const projectRows = [...document.querySelectorAll("[data-project]")];
+    const emptySearch = document.querySelector("#empty-search");
+    searchInput.addEventListener("input", () => {
+      const query = searchInput.value.trim().toLocaleLowerCase();
+      let visibleCount = 0;
+      for (const row of projectRows) {
+        const visible = row.textContent.toLocaleLowerCase().includes(query);
+        row.hidden = !visible;
+        if (visible) visibleCount += 1;
+      }
+      emptySearch.classList.toggle("hidden", visibleCount !== 0);
+    });
+    document.querySelector("#export").addEventListener("click", () => {
+      const visibleRows = projectRows.filter((row) => !row.hidden);
+      const lines = [["Project", "Owner", "Progress", "Status", "Due date"], ...visibleRows.map((row) =>
+        [...row.querySelectorAll("td")].map((cell) => cell.textContent.trim().replace(/\s+/g, " ")),
+      )];
+      const csv = lines.map((line) => line.map((field) => `"${field.replaceAll('"', '""')}"`).join(",")).join("\n");
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
+      link.download = "northstar-projects.csv";
+      link.click();
+      URL.revokeObjectURL(link.href);
+    });
+  </script>
+</body>
+</html>

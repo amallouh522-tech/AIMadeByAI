@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A responsive landing page for a focused product team workspace.">
+  <title>Fieldnote | Make room for good work</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: "#202822",
+            leaf: "#326c4b",
+            mint: "#d9e8dd",
+            coral: "#c85d45",
+            paper: "#f5f4ed"
+          },
+          fontFamily: { display: ["Georgia", "serif"] }
+        }
+      }
+    };
+  </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-paper text-ink antialiased">
+  <header class="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 md:px-10">
+    <a href="#home" class="flex items-center gap-2 text-lg font-semibold" aria-label="Fieldnote home">
+      <span class="grid size-9 place-items-center rounded-full bg-leaf text-white"><i data-lucide="sprout" class="size-5"></i></span>
+      Fieldnote
+    </a>
+    <nav class="hidden items-center gap-8 text-sm md:flex" aria-label="Main navigation">
+      <a class="hover:text-leaf" href="#workspaces">Workspaces</a>
+      <a class="hover:text-leaf" href="#stories">Stories</a>
+      <a class="hover:text-leaf" href="#pricing">Pricing</a>
+    </nav>
+    <a href="#signup" class="inline-flex items-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-medium text-white hover:bg-leaf">
+      Start a workspace <i data-lucide="arrow-up-right" class="size-4"></i>
+    </a>
+  </header>
+
+  <main id="home">
+    <section class="mx-auto grid max-w-7xl items-center gap-12 px-5 pb-20 pt-10 md:grid-cols-[1fr_0.9fr] md:px-10 md:pb-28 md:pt-16">
+      <div class="max-w-2xl">
+        <p class="mb-6 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-leaf"><span class="size-2 rounded-full bg-coral"></span> A calmer way to collaborate</p>
+        <h1 class="font-display text-5xl leading-[1.05] md:text-7xl">Make room for good work.</h1>
+        <p class="mt-7 max-w-xl text-lg leading-8 text-ink/70">Fieldnote brings your projects, conversations, and next steps into one clear place, so your team can spend more time making and less time searching.</p>
+        <div id="signup" class="mt-9 flex flex-col gap-3 sm:flex-row">
+          <a href="#workspaces" class="inline-flex items-center justify-center gap-2 rounded-full bg-leaf px-6 py-4 font-semibold text-white hover:bg-ink">Build your workspace <i data-lucide="arrow-right" class="size-4"></i></a>
+          <a href="#stories" class="inline-flex items-center justify-center gap-2 rounded-full border border-ink/20 px-6 py-4 font-semibold hover:border-leaf hover:text-leaf"><i data-lucide="play" class="size-4"></i> See how it works</a>
+        </div>
+        <p class="mt-5 text-sm text-ink/60">Free for small teams. No card required.</p>
+      </div>
+      <div class="relative mx-auto w-full max-w-xl" aria-label="Fieldnote project board preview">
+        <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=85" alt="Bright shared studio workspace with desks and plants" class="aspect-[4/3] w-full rounded-[2rem] object-cover shadow-xl">
+        <div class="absolute -bottom-6 left-4 max-w-xs rounded-2xl bg-white p-5 shadow-xl md:-left-8 md:p-6">
+          <div class="flex items-center justify-between gap-8">
+            <div><p class="text-sm text-ink/60">Studio refresh</p><p class="mt-1 text-lg font-semibold">A good week, in focus</p></div>
+            <span class="grid size-10 place-items-center rounded-full bg-mint text-leaf"><i data-lucide="check" class="size-5"></i></span>
+          </div>
+          <div class="mt-5 flex -space-x-2" aria-label="Three project collaborators">
+            <span class="grid size-8 place-items-center rounded-full border-2 border-white bg-coral text-xs font-bold text-white">AM</span>
+            <span class="grid size-8 place-items-center rounded-full border-2 border-white bg-leaf text-xs font-bold text-white">JL</span>
+            <span class="grid size-8 place-items-center rounded-full border-2 border-white bg-amber-500 text-xs font-bold text-white">RK</span>
+            <span class="ml-3 self-center text-xs text-ink/60">3 people moving together</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="workspaces" class="border-y border-ink/10 bg-white py-12">
+      <div class="mx-auto grid max-w-7xl gap-7 px-5 md:grid-cols-3 md:px-10">
+        <article class="border-l-2 border-leaf pl-5"><p class="font-display text-3xl">One shared home</p><p class="mt-2 leading-6 text-ink/65">Keep decisions, files, and work visible to the people who need them.</p></article>
+        <article class="border-l-2 border-coral pl-5"><p class="font-display text-3xl">A kinder rhythm</p><p class="mt-2 leading-6 text-ink/65">Make ownership clear and give focused work room on the calendar.</p></article>
+        <article class="border-l-2 border-amber-500 pl-5"><p class="font-display text-3xl">Less busywork</p><p class="mt-2 leading-6 text-ink/65">Turn recurring check-ins into useful summaries and next steps.</p></article>
+      </div>
+    </section>
+
+    <section id="stories" class="mx-auto grid max-w-7xl gap-12 px-5 py-20 md:grid-cols-2 md:px-10 md:py-28">
+      <div class="self-center"><p class="text-sm font-semibold uppercase tracking-wide text-coral">Made for real teams</p><h2 class="mt-4 max-w-lg font-display text-4xl leading-tight md:text-5xl">The useful details stay close to the work.</h2><p class="mt-5 max-w-lg leading-7 text-ink/70">Project notes, decisions, owners, and due dates live together. New teammates can catch up without chasing context across a dozen tabs.</p><a class="mt-7 inline-flex items-center gap-2 font-semibold text-leaf" href="#pricing">Explore the workspace <i data-lucide="arrow-right" class="size-4"></i></a></div>
+      <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1200&q=85" alt="Small team collaborating around a table" class="aspect-[5/4] w-full rounded-[2rem] object-cover">
+    </section>
+
+    <section id="pricing" class="bg-ink px-5 py-16 text-white md:px-10">
+      <div class="mx-auto flex max-w-7xl flex-col items-start justify-between gap-8 md:flex-row md:items-center">
+        <div><p class="text-sm font-semibold uppercase tracking-wide text-mint">A better next week starts here</p><h2 class="mt-3 font-display text-4xl md:text-5xl">Bring the good work together.</h2></div>
+        <a href="#signup" class="inline-flex items-center gap-2 rounded-full bg-coral px-6 py-4 font-semibold hover:bg-white hover:text-ink">Create your free workspace <i data-lucide="arrow-up-right" class="size-4"></i></a>
+      </div>
+    </section>
+  </main>
+  <footer class="mx-auto flex max-w-7xl flex-col gap-3 px-5 py-7 text-sm text-ink/60 md:flex-row md:justify-between md:px-10"><span>© 2025 Fieldnote</span><span>Thoughtful tools for people doing thoughtful work.</span></footer>
+  <script>lucide.createIcons();</script>
+</body>
+</html>

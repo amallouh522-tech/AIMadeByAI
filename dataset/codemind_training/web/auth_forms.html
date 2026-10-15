@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Responsive sign-in and account creation forms for an online service.">
+  <title>Sign in | Juniper</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme: { extend: { colors: { moss: "#38634b", peach: "#f1b29b", linen: "#f5f3ec", charcoal: "#202822" } } } };
+  </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="min-h-screen bg-linen font-sans text-charcoal antialiased">
+  <main class="mx-auto grid min-h-screen max-w-7xl lg:grid-cols-[1fr_0.9fr]">
+    <section class="relative hidden overflow-hidden bg-moss p-10 text-white lg:flex lg:flex-col lg:justify-between xl:p-16">
+      <a class="flex w-fit items-center gap-3 text-lg font-semibold" href="#home"><span class="grid size-10 place-items-center rounded-full bg-peach text-charcoal"><i data-lucide="leaf" class="size-5"></i></span> Juniper</a>
+      <div class="relative z-10 max-w-xl py-16"><p class="text-sm font-semibold uppercase tracking-wide text-peach">A thoughtful space to grow</p><h1 class="mt-5 font-serif text-6xl leading-[1.08]">Build something good, together.</h1><p class="mt-6 max-w-md text-lg leading-8 text-white/75">Bring your notes, plans, and people together in one welcoming place.</p></div>
+      <div class="relative z-10 flex items-center gap-4"><div class="flex -space-x-3"><span class="grid size-10 place-items-center rounded-full border-2 border-moss bg-peach text-xs font-bold text-charcoal">MK</span><span class="grid size-10 place-items-center rounded-full border-2 border-moss bg-amber-200 text-xs font-bold text-charcoal">JL</span><span class="grid size-10 place-items-center rounded-full border-2 border-moss bg-sky-200 text-xs font-bold text-charcoal">AR</span></div><p class="text-sm text-white/75">A little more focus, every day.</p></div>
+      <div class="absolute -bottom-28 -right-20 size-96 rounded-full border border-white/15"></div><div class="absolute -bottom-16 -right-8 size-72 rounded-full border border-white/15"></div>
+    </section>
+
+    <section class="flex min-h-screen flex-col px-5 py-6 sm:px-10 lg:px-14 xl:px-20">
+      <header class="flex items-center justify-between lg:justify-end"><a class="flex items-center gap-2 text-lg font-semibold lg:hidden" href="#home"><span class="grid size-9 place-items-center rounded-full bg-moss text-white"><i data-lucide="leaf" class="size-4"></i></span> Juniper</a><a href="#help" class="text-sm text-charcoal/65 hover:text-moss">Need help?</a></header>
+      <div class="mx-auto flex w-full max-w-md flex-1 flex-col justify-center py-10">
+        <div class="mb-8"><p class="text-sm font-semibold uppercase tracking-wide text-moss">Welcome to Juniper</p><h2 id="form-title" class="mt-2 text-3xl font-bold">Sign in to your account</h2><p id="form-subtitle" class="mt-2 text-charcoal/65">Pick up where you left off.</p></div>
+        <div class="mb-6 grid grid-cols-2 rounded-lg bg-white p-1" role="tablist" aria-label="Account access type"><button id="login-tab" type="button" role="tab" aria-selected="true" class="rounded-md bg-moss px-4 py-2.5 text-sm font-semibold text-white">Sign in</button><button id="register-tab" type="button" role="tab" aria-selected="false" class="rounded-md px-4 py-2.5 text-sm font-semibold text-charcoal/65 hover:text-charcoal">Create account</button></div>
+        <div id="form-message" role="status" aria-live="polite" class="mb-4 hidden rounded-lg border border-moss/20 bg-white px-4 py-3 text-sm text-moss"></div>
+        <form id="auth-form" class="space-y-5" novalidate>
+          <div id="name-field" class="hidden"><label for="full-name" class="mb-2 block text-sm font-semibold">Full name</label><input id="full-name" name="name" autocomplete="name" type="text" class="w-full rounded-lg border border-charcoal/20 bg-white px-4 py-3 outline-none transition focus:border-moss focus:ring-2 focus:ring-moss/15" placeholder="Morgan Kim"></div>
+          <div><label for="email" class="mb-2 block text-sm font-semibold">Email address</label><input id="email" name="email" autocomplete="email" type="email" required class="w-full rounded-lg border border-charcoal/20 bg-white px-4 py-3 outline-none transition focus:border-moss focus:ring-2 focus:ring-moss/15" placeholder="you@example.com"></div>
+          <div><div class="mb-2 flex items-center justify-between"><label for="password" class="text-sm font-semibold">Password</label><a id="forgot-link" href="#reset" class="text-sm font-medium text-moss hover:underline">Forgot password?</a></div><div class="relative"><input id="password" name="password" autocomplete="current-password" type="password" minlength="8" required class="w-full rounded-lg border border-charcoal/20 bg-white px-4 py-3 pr-12 outline-none transition focus:border-moss focus:ring-2 focus:ring-moss/15" placeholder="At least 8 characters"><button id="toggle-password" type="button" class="absolute inset-y-0 right-0 grid w-12 place-items-center text-charcoal/55 hover:text-moss" aria-label="Show password" aria-pressed="false"><i data-lucide="eye" class="size-4"></i></button></div></div>
+          <div id="terms-field" class="hidden"><label class="flex items-start gap-3 text-sm leading-5 text-charcoal/75"><input id="terms" name="terms" type="checkbox" class="mt-1 accent-moss"><span>I agree to the <a href="#terms" class="font-semibold text-moss underline">Terms of Service</a> and <a href="#privacy" class="font-semibold text-moss underline">Privacy Policy</a>.</span></label></div>
+          <button id="submit-button" type="submit" class="flex w-full items-center justify-center gap-2 rounded-lg bg-moss px-5 py-3.5 font-semibold text-white transition hover:bg-charcoal focus:outline-none focus:ring-2 focus:ring-moss focus:ring-offset-2"><span>Sign in</span><i data-lucide="arrow-right" class="size-4"></i></button>
+        </form>
+        <div class="my-6 flex items-center gap-4 text-xs text-charcoal/45"><span class="h-px flex-1 bg-charcoal/15"></span> OR CONTINUE WITH <span class="h-px flex-1 bg-charcoal/15"></span></div>
+        <button id="provider-button" type="button" class="flex w-full items-center justify-center gap-3 rounded-lg border border-charcoal/20 bg-white px-5 py-3 font-medium hover:border-moss"><span aria-hidden="true" class="grid size-5 place-items-center rounded-full border border-charcoal/20 text-xs font-bold">G</span><span>Continue with Google</span></button>
+        <p id="switch-prompt" class="mt-8 text-center text-sm text-charcoal/65">New to Juniper? <button type="button" data-switch="register" class="font-semibold text-moss hover:underline">Create an account</button></p>
+        <p class="mt-8 text-center text-xs leading-5 text-charcoal/50">By continuing, you acknowledge our <a href="#privacy" class="underline">Privacy Policy</a> and <a href="#terms" class="underline">Terms of Service</a>.</p>
+      </div>
+      <footer class="py-4 text-center text-xs text-charcoal/45">© 2025 Juniper Workspace</footer>
+    </section>
+  </main>
+  <script>
+    lucide.createIcons();
+    const form = document.querySelector("#auth-form");
+    const loginTab = document.querySelector("#login-tab");
+    const registerTab = document.querySelector("#register-tab");
+    const nameField = document.querySelector("#name-field");
+    const termsField = document.querySelector("#terms-field");
+    const terms = document.querySelector("#terms");
+    const password = document.querySelector("#password");
+    const message = document.querySelector("#form-message");
+    let mode = "login";
+
+    function setMode(nextMode) {
+      mode = nextMode;
+      const registering = mode === "register";
+      loginTab.setAttribute("aria-selected", String(!registering));
+      registerTab.setAttribute("aria-selected", String(registering));
+      loginTab.className = `rounded-md px-4 py-2.5 text-sm font-semibold ${registering ? "text-charcoal/65 hover:text-charcoal" : "bg-moss text-white"}`;
+      registerTab.className = `rounded-md px-4 py-2.5 text-sm font-semibold ${registering ? "bg-moss text-white" : "text-charcoal/65 hover:text-charcoal"}`;
+      nameField.classList.toggle("hidden", !registering);
+      termsField.classList.toggle("hidden", !registering);
+      terms.required = registering;
+      password.autocomplete = registering ? "new-password" : "current-password";
+      document.querySelector("#form-title").textContent = registering ? "Create your account" : "Sign in to your account";
+      document.querySelector("#form-subtitle").textContent = registering ? "Start with your name and work email." : "Pick up where you left off.";
+      document.querySelector("#submit-button span").textContent = registering ? "Create account" : "Sign in";
+      document.querySelector("#forgot-link").classList.toggle("hidden", registering);
+      document.querySelector("#switch-prompt").innerHTML = registering
+        ? 'Already have an account? <button type="button" data-switch="login" class="font-semibold text-moss hover:underline">Sign in</button>'
+        : 'New to Juniper? <button type="button" data-switch="register" class="font-semibold text-moss hover:underline">Create an account</button>';
+      message.classList.add("hidden");
+    }
+
+    loginTab.addEventListener("click", () => setMode("login"));
+    registerTab.addEventListener("click", () => setMode("register"));
+    document.querySelector("#switch-prompt").addEventListener("click", (event) => {
+      const nextMode = event.target.dataset.switch;
+      if (nextMode) setMode(nextMode);
+    });
+    document.querySelector("#toggle-password").addEventListener("click", (event) => {
+      const button = event.currentTarget;
+      const visible = password.type === "text";
+      password.type = visible ? "password" : "text";
+      button.setAttribute("aria-pressed", String(!visible));
+      button.setAttribute("aria-label", visible ? "Show password" : "Hide password");
+      button.innerHTML = `<i data-lucide="${visible ? "eye" : "eye-off"}" class="size-4"></i>`;
+      lucide.createIcons();
+    });
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      message.classList.remove("hidden");
+      if (!form.reportValidity()) {
+        message.textContent = "Review the highlighted fields and try again.";
+        return;
+      }
+      message.textContent = mode === "register"
+        ? "Your details are valid. Connect this form to your account creation service."
+        : "Your details are valid. Connect this form to your authentication service.";
+    });
+    document.querySelector("#provider-button").addEventListener("click", () => {
+      message.textContent = "Connect this button to your OAuth provider.";
+      message.classList.remove("hidden");
+    });
+  </script>
+</body>
+</html>
