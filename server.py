@@ -1,6 +1,6 @@
 """
 خادم الـ API المحلي (HTTP API Server)
-يستقبل طلبات الـ POST للدردشة والـ GET للإحصائيات بطريقة رسمية ومتكاملة.
+يدعم إعادة Title للمحادثة ونتائج البحث الحية من الويب.
 """
 
 import json
@@ -10,7 +10,6 @@ from config import CONFIG, logger
 from llm_core import CoreLLMEngine
 from agent_tools import CodeMindAgentSystem
 
-# تهيئة المحركات المركزية للخادم
 server_llm_engine = CoreLLMEngine()
 server_agent_system = CodeMindAgentSystem(server_llm_engine)
 
@@ -27,6 +26,8 @@ class EnterpriseAPIRequestHandler(http.server.BaseHTTPRequestHandler):
         self._send_response_headers(200)
 
     def do_GET(self):
+        server_llm_engine.load_model_checkpoint()
+
         if self.path == "/" or self.path == "/health":
             self._send_response_headers(200, "text/html")
             dashboard_html = f"""
@@ -44,12 +45,11 @@ class EnterpriseAPIRequestHandler(http.server.BaseHTTPRequestHandler):
             </head>
             <body>
                 <div class="box">
-                    <h1>🚀 نظام CodeMind Enterprise يعمل بكفاءة تامة</h1>
-                    <p>خادم الـ API والتعلم المستمر في وضع التشغيل النشط.</p>
+                    <h1>🚀 نظام CodeMind Enterprise الذكي</h1>
+                    <p>المحرك متصل بالبحث الحي في الويب وتوليد عناوين المحادثات تلقائياً.</p>
                     <hr style="border-color: #334155;">
-                    <p>إجمالي الأنماط البرمجية المتعلمة: <span class="num">{len(server_llm_engine.model_graph)}</span></p>
-                    <p>إجمالي الرموز المعالجة: <span class="num">{server_llm_engine.statistics['total_tokens_processed']}</span></p>
-                    <p>نقطة النهاية للتفاعل (POST): <code>/v1/chat</code></p>
+                    <p>إجمالي الأنماط المتعلمة: <span class="num">{len(server_llm_engine.model_graph)}</span></p>
+                    <p>إجمالي المفردات (Vocabulary): <span class="num">{len(server_llm_engine.vocabulary)}</span></p>
                 </div>
             </body>
             </html>
@@ -71,6 +71,8 @@ class EnterpriseAPIRequestHandler(http.server.BaseHTTPRequestHandler):
             self.wfile.write(json.dumps({"error": "Endpoint not found"}).encode('utf-8'))
 
     def do_POST(self):
+        server_llm_engine.load_model_checkpoint()
+
         if self.path == "/v1/chat":
             try:
                 content_length = int(self.headers.get("Content-Length", 0))
@@ -83,12 +85,14 @@ class EnterpriseAPIRequestHandler(http.server.BaseHTTPRequestHandler):
                     self.wfile.write(json.dumps({"error": "رسالة المستخدم فارغة."}).encode('utf-8'))
                     return
 
-                # تنفيذ المهمة عبر الوكيل والنظام الذكي
-                result_output = server_agent_system.execute_user_objective(user_message)
+                # تنفيذ المهمة عبر الوكيل
+                result = server_agent_system.execute_user_objective(user_message)
 
                 response_payload = {
                     "status": "success",
-                    "data": result_output,
+                    "title": result.get("title", "محادثة جديدة"),
+                    "response": result.get("response", ""),
+                    "source": result.get("source", "llm_core"),
                     "memory_patterns": len(server_llm_engine.model_graph)
                 }
 
@@ -106,12 +110,8 @@ class EnterpriseAPIRequestHandler(http.server.BaseHTTPRequestHandler):
 def run_enterprise_server():
     port = CONFIG["server_port"]
     with socketserver.TCPServer(("", port), EnterpriseAPIRequestHandler) as httpd:
-        logger.info(f"==================================================")
         logger.info(f"🚀 خادم CodeMind Enterprise يعمل على المنفذ: {port}")
-        logger.info(f"📡 نقطة المحادثة: http://localhost:{port}/v1/chat")
-        logger.info(f"==================================================")
         try:
             httpd.serve_forever()
         except KeyboardInterrupt:
-            logger.info("جاري إيقاف الخادم وحفظ الذاكرة نهائياً...")
-            server_llm_engine.save_model_checkpoint()
+            logger.info("تم إيقاف الخادم.")

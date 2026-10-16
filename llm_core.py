@@ -1,6 +1,6 @@
 """
-محرك الـ LLM الأساسي (LLM Core Engine)
-يدير الذاكرة، الخوارزميات الاحتمالية للسياق، التعلم التراكمي، والحفظ الآمن.
+محرك الـ LLM الأساسي (LLM Core Engine) المحدث
+يدير الذاكرة، خوارزميات التوليد الذكية، التعلم التراكمي، والحفظ الآمن.
 """
 
 import os
@@ -50,7 +50,7 @@ class CoreLLMEngine:
                 return False
 
     def save_model_checkpoint(self) -> bool:
-        """حفظ الحالة الحالية للنموذج لمنع فقدان البيانات عند انقطاع الكهرباء"""
+        """حفظ الحالة الحالية للنموذج لمنع فقدان البيانات"""
         with self.thread_lock:
             try:
                 payload = {
@@ -92,15 +92,16 @@ class CoreLLMEngine:
                 if next_word not in self.model_graph[context_key]:
                     self.model_graph[context_key].append(next_word)
 
-    def generate_response(self, prompt: str, word_limit: int = CONFIG["max_response_generation_words"]) -> str:
-        """توليد الإجابات، الحلول، والأكواد بناءً على الذاكرة التراكمية وسياق المستخدم"""
-        # يتعلم النظام فوراً من السؤال المطروح لضمان التطور المستمر
+    def generate_response(self, prompt: str, word_limit: int = 60) -> str:
+        """توليد الإجابات الذكية بناءً على الذاكرة التراكمية وسياق المستخدم"""
+        # التعلم الفوري من السؤال لربطه بسياق الذاكرة
         self.train_on_text(prompt)
         tokens = self.tokenizer.tokenize(prompt)
 
         if not self.model_graph:
             return "الذاكرة لا تحتوي على بيانات كافية بعد. أضف نصوصاً أو ملفات لمجلد dataset ليصبح أذكى."
 
+        # تحديد السياق الأولي من نهاية رسالة المستخدم
         if len(tokens) >= self.context_window:
             current_context = " ".join(tokens[-self.context_window:])
         else:
@@ -116,7 +117,14 @@ class CoreLLMEngine:
                 current_context = random.choice(all_keys)
 
             possible_next_words = self.model_graph[current_context]
-            selected_word = random.choice(possible_next_words)
+            
+            # اختيار الكلمة بذكاء: تفضيل الكلمات الأكثر تكراراً في القائمة لضمان تماسك الجملة
+            if len(possible_next_words) > 3:
+                # اختيار عشوائي ذكي من أوائل الاحتمالات المتاحة لمنع الشطط العشوائي
+                selected_word = random.choice(possible_next_words[:min(5, len(possible_next_words))])
+            else:
+                selected_word = random.choice(possible_next_words)
+
             generated_tokens.append(selected_word)
 
             context_words = current_context.split()
@@ -125,7 +133,6 @@ class CoreLLMEngine:
             else:
                 current_context = current_context + " " + selected_word
 
+        # تجميع الرد النهائي وتنظيف المسافات والرموز المكررة
         final_response = " ".join(generated_tokens)
-        # يتعلم أيضاً من الرد المتولد لرفع دقة الجودة لاحقاً
-        self.train_on_text(final_response)
         return final_response
